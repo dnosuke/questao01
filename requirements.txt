@@ -1,0 +1,5 @@
+pandas
+seaborn
+pil~=2.2
+Python
+Django

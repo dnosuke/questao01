@@ -1,0 +1,31 @@
+from django.contrib import admin
+from django.utils import timezone
+from datetime import *
+import pytz
+from .models import *
+
+
+class DespesaAdmin(admin.ModelAdmin):
+    list_display = ('tipo_despesa', 'vencimento','forma_pagamento', 'quitado','proximo')
+    list_filter = ('quitado','vencimento')
+    ordering = ('vencimento','forma_pagamento')
+
+    def proximo(self, obj):
+        return datetime.now(pytz.timezone('America/Fortaleza')) >= obj.vencimento - timedelta(days=2)
+
+    proximo.short_description = 'Vencimento próximo?'
+    proximo.boolean = True
+
+admin.site.register(Despesa, DespesaAdmin)
+
+
+
+#default:"Administração do Django"
+admin.site.site_header='Painel de Controle'
+
+#default:"Administração do Site"
+admin.site.index_title='Recursos'
+
+#default:"Site de Administração do Django"
+admin.site.site_title='Titulo HTML do Site'
+
