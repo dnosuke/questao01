@@ -1,8 +1,8 @@
 from django.contrib import admin
 from django.utils import timezone
-from datetime import *
-import pytz
-from .models import *
+import datetime
+from datetime import timedelta
+from .models import Despesa
 
 class DespesaAdmin(admin.ModelAdmin):
     def proximo(self, obj):
