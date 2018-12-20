@@ -11,14 +11,14 @@ class DespesaAdmin(admin.ModelAdmin):
     ordering = ('vencimento','forma_pagamento')
 
     class DespesaAdmin(admin.ModelAdmin):
-        list_display = ('tipo_despesa', 'vencimento','forma_pagamento', 'quitado','proximo')
-        list_filter = ('quitado','vencimento')
-        ordering = ('vencimento','forma_pagamento')
-
         def proximo(self, obj):
             hoje = datetime.datetime.now()
             return hoje.date() >= obj.vencimento - timedelta(days=2)
-
+        
+        list_display = ('tipo_despesa', 'vencimento','forma_pagamento', 'quitado','proximo')
+        list_filter = ('quitado','vencimento')
+        ordering = ('vencimento','forma_pagamento')
+        
         proximo.short_description = 'Vencimento próximo?'
         proximo.boolean = True
 
